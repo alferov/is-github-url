@@ -11,7 +11,7 @@ var urls = [
 ];
 
 var cloningUrls = [
-  'git://github.com/ember-cli/ember-cli.git#gh-pages',
+  'git://github.com/facebook/react.git#gh-pages',
   'git@github.com:facebook/react.git',
   'https://github.com/facebook/react.git'
 ];
@@ -23,7 +23,11 @@ var invalidUrls = [
   'https://google.com',
   'https://hello.github.com',
   'unknown://github.com',
-  'http://alferov.github.io/'
+  'http://facebook.github.io/',
+  'git@github.com:facebook/react.git/foo',
+  'git@github.com:user/some_project.gitfoo',
+  'git://github.com:user/some_project.gitfoo',
+  'git://github.com:user/some_project'
 ];
 
 describe('is-github-url', function() {
@@ -69,7 +73,7 @@ describe('is-github-url', function() {
 
     invalidUrls.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be invalid', function () {
-        expect(isGithubUrl(url)).to.be.false;
+        expect(isGithubUrl(url, options)).to.be.false;
       });
     });
 

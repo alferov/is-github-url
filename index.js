@@ -9,19 +9,23 @@
  *
  * @param {String} url A string to be validated
  * @param {Object} options An object containing the following fields:
- *  - `includeGhPages` (Boolean): Add github.io domain to
- * the matching pattern
+ *  - `strict` (Boolean): Match only URLs ending with .git
  *
- * @return {Boolean} Result of operation
+ * @return {Boolean} Result of validation
  */
 
 module.exports = function isGithubUrl(url, options) {
   options = options || {};
-  var strict = options.strict ? '' : '?';
+  // Switch to strict mode automatically if the string contains the following
+  // parts:
+  var requireStrict = /git(@|:)|\.git/.test(url);
+  var strict = options.strict || requireStrict;
 
-  var pattern = '(?:git|ssh|https?|git@)(?:\\:\\/\\/)?github.com[\\w\\.@:\\/~_-]+(?:\\.git)'
-  + strict
-  + '(?:\\/?|\\#[\\d\\w\\.\\-_]+?)$';
+  var cloning = strict ? '\\.git(?:\\/?|\\#[\\d\\w\\.\\-_]+?)$' : '';
+
+  var pattern = '(?:git|https?|git@)(?:\\:\\/\\/)?github.com[\\w\\.@:\\/~_-]+'
+    + cloning;
+
   var re = new RegExp(pattern);
   return re.test(url);
 };
