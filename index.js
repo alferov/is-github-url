@@ -14,17 +14,20 @@
  * @return {Boolean} Result of validation
  */
 
+// Switch to strict mode automatically if the following pattern matches passed
+// string
+var strictRequired = function(string) {
+  return /git(@|:)|\.git/.test(string);
+}
+
 module.exports = function isGithubUrl(url, options) {
   options = options || {};
-  // Switch to strict mode automatically if the string contains the following
-  // parts:
-  var requireStrict = /git(@|:)|\.git/.test(url);
-  var strict = options.strict || requireStrict;
 
-  var cloning = strict ? '\\.git(?:\\/?|\\#[\\d\\w\\.\\-_]+?)$' : '';
+  var isStrict = options.strict || strictRequired(url);
+  var strictPattern = isStrict ? '\\.git(?:\\/?|\\#[\\d\\w\\.\\-_]+?)$' : '';
 
   var pattern = '(?:git|https?|git@)(?:\\:\\/\\/)?github.com[\\w\\.@:\\/~_-]+'
-    + cloning;
+    + strictPattern;
 
   var re = new RegExp(pattern);
   return re.test(url);
