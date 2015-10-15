@@ -2,7 +2,7 @@
 
 /**
  * isGithubUrl
- * Validate whether a passed string is a valid GitHub URL
+ * Check if a passed string is a valid GitHub URL
  *
  * @name isGithubUrl
  * @function
