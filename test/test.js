@@ -2,23 +2,23 @@
 var chai = require('chai');
 var expect = chai.expect;
 var isGithubUrl = require('../index.js');
+var options;
 
-var validUrls = [
-  'https://github.com/facebook/react',
-  'git@github.com:facebook/react.git',
+var urls = [
   'https://github.com/facebook/react',
   'https://github.com/facebook/react/tree/0.14-stable',
-  'https://github.com/facebook/react/releases/tag/v0.14.0',
-  'github.com/facebook/react',
-  'www.github.com/facebook/react'
+  'https://github.com/facebook/react/releases/tag/v0.14.0'
 ];
 
-var validGhPages = [
-  'http://alferov.github.io/',
-  'http://alferov.github.io/angular-file-saver/'
+var cloningUrls = [
+  'git://github.com/ember-cli/ember-cli.git#gh-pages',
+  'git@github.com:facebook/react.git',
+  'https://github.com/facebook/react.git'
 ];
 
 var invalidUrls = [
+  'github.com/facebook/react',
+  'www.github.com/facebook/react',
   'google.com',
   'https://google.com',
   'https://hello.github.com',
@@ -27,26 +27,51 @@ var invalidUrls = [
 ];
 
 describe('is-github-url', function() {
-  describe('valid urls', function() {
-    validUrls.forEach(function(url) {
+  describe('with a standart set of options', function() {
+
+    urls.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be valid', function () {
         expect(isGithubUrl(url)).to.be.true;
       });
     });
 
-    validGhPages.forEach(function(url) {
+    cloningUrls.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be valid', function () {
-        expect(isGithubUrl(url, { includeGhPages: true })).to.be.true;
+        expect(isGithubUrl(url)).to.be.true;
       });
     });
-  });
 
-  describe('invalid urls', function() {
     invalidUrls.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be invalid', function () {
         expect(isGithubUrl(url)).to.be.false;
       });
     });
+
   });
 
+  describe('with enabled strict mode', function() {
+
+    before(function() {
+      options = { strict: true };
+    });
+
+    urls.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be invalid', function () {
+        expect(isGithubUrl(url, options)).to.be.false;
+      });
+    });
+
+    cloningUrls.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be valid', function () {
+        expect(isGithubUrl(url, options)).to.be.true;
+      });
+    });
+
+    invalidUrls.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be invalid', function () {
+        expect(isGithubUrl(url)).to.be.false;
+      });
+    });
+
+  });
 });

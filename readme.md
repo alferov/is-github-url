@@ -15,7 +15,7 @@ var isGithubUrl = require('is-github-url');
 
 // Valid examples
 isGithubUrl('https://github.com/facebook/react') // => true
-isGithubUrl('git@github.com:facebook/react.giе') // => true
+isGithubUrl('git@github.com:facebook/react.git') // => true
 isGithubUrl('github.com/facebook/react') // => true
 isGithubUrl('https://github.com/facebook/react/releases/tag/v0.14.0') // => true
 isGithubUrl('www.github.com/facebook/react') // => true
@@ -37,6 +37,7 @@ Validate whether a passed string is a valid GitHub URL
 - **String** `url`: A string to be validated
 - **Object** `options`: An object containing the following fields:
   - `includeGhPages` (Boolean): Add github.io domain to the matching pattern
+  - `requireProtocol` (Boolean): Returns true only if URL contains protocol
 
 ## License
 MIT © [Philipp Alferov](https://github.com/alferov)
