@@ -13,7 +13,8 @@ var urls = [
 var cloningUrls = [
   'git://github.com/facebook/react.git#gh-pages',
   'git@github.com:facebook/react.git',
-  'https://github.com/facebook/react.git'
+  'https://github.com/facebook/react.git',
+  'git://github.com:user/some_project.git.git'
 ];
 
 var invalidUrls = [
@@ -27,7 +28,8 @@ var invalidUrls = [
   'git@github.com:facebook/react.git/foo',
   'git@github.com:user/some_project.gitfoo',
   'git://github.com:user/some_project.gitfoo',
-  'git://github.com:user/some_project'
+  'git://github.com:user/some_project',
+  'git@github.com:facebook/react/facebook.git'
 ];
 
 describe('is-github-url', function() {
