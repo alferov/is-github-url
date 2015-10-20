@@ -2,7 +2,7 @@
 
 >  Check if a passed string is a valid GitHub URL
 
-Unlike [is-git-url](https://github.com/jonschlinkert/is-git-urlhttps://github.com/jonschlinkert/is-git-url), is-github-url is a domain-specific validator. It returns `true` if passed URL is a part of `github.com` domain only.
+Unlike [is-git-url](https://github.com/jonschlinkert/is-git-url), is-github-url is a domain-specific validator. It returns `true` if passed URL is a part of `github.com` domain only.
 
 ## Installation
 ```
