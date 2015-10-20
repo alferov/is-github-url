@@ -18,7 +18,7 @@
 // string
 var strictRequired = function(string) {
   return /git(@|:)|\.git/.test(string);
-}
+};
 
 module.exports = function isGithubUrl(url, options) {
   options = options || {};
