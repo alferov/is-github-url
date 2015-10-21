@@ -10,7 +10,7 @@
  * @param {String} url A string to be validated
  * @param {Object} options An object containing the following fields:
  *  - `strict` (Boolean): Match only URLs ending with .git
- *
+ *  - `repository` (Boolean): Match only valid GitHub repo URLs
  * @return {Boolean} Result of validation
  */
 
