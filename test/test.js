@@ -9,6 +9,10 @@ var userUrls = [
   'https://github.com/facebook/'
 ];
 
+var githubURLs = [
+  'https://github.com/'
+];
+
 var repoUrls = [
   'https://github.com/facebook/react',
   'https://github.com/facebook/react',
@@ -25,6 +29,7 @@ var cloningUrls = [
 ];
 
 var invalidUrls = [
+  'github.com/',
   'github.com/facebook/react',
   'www.github.com/facebook/react',
   'google.com',
@@ -43,6 +48,12 @@ var invalidUrls = [
 
 describe('is-github-url', function() {
   describe('with a standart set of options', function() {
+
+    githubURLs.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be valid', function() {
+        expect(isGithubUrl(url)).to.be.true;
+      });
+    });
 
     repoUrls.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be valid', function() {
@@ -76,6 +87,12 @@ describe('is-github-url', function() {
       options = { strict: true };
     });
 
+    githubURLs.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be invalid', function() {
+        expect(isGithubUrl(url, options)).to.be.false;
+      });
+    });
+
     repoUrls.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be invalid', function() {
         expect(isGithubUrl(url, options)).to.be.false;
@@ -106,6 +123,12 @@ describe('is-github-url', function() {
 
     before(function() {
       options = { repository: true };
+    });
+
+    githubURLs.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be invalid', function() {
+        expect(isGithubUrl(url, options)).to.be.false;
+      });
     });
 
     repoUrls.forEach(function(url) {

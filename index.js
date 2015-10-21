@@ -1,5 +1,16 @@
 'use strict';
 
+var isPlainGhUrl = function(string) {
+  var re = new RegExp('(?:https?\\:\\/\\/)github.com\\/?$');
+  return re.test(string);
+};
+
+// Switch to strict mode automatically if the following pattern matches passed
+// string
+var isStrictRequired = function(string) {
+  return /git(@|:)|\.git/.test(string);
+};
+
 /**
  * isGithubUrl
  * Check if a passed string is a valid GitHub URL
@@ -13,23 +24,20 @@
  *  - `repository` (Boolean): Match only valid GitHub repo URLs
  * @return {Boolean} Result of validation
  */
-
-// Switch to strict mode automatically if the following pattern matches passed
-// string
-var isStrictRequired = function(string) {
-  return /git(@|:)|\.git/.test(string);
-};
-
 module.exports = function isGithubUrl(url, options) {
   options = options || {};
   var isStrict = options.strict || isStrictRequired(url);
+  var repoRequired = options.repository || isStrict;
   var strictPattern = '\\/[\\w\\.-]+?\\.git(?:\\/?|\\#[\\d\\w\\.\\-_]+)?$';
-  var loosePattern = options.repository
+  var loosePattern = repoRequired
     ? '\\/[\\w\\.\\#\\/-]+\\/?$'
     : '(?:\\/[\\w\\.\\#\\/-]+)?\\/?$';
   var endOfPattern = isStrict ? strictPattern : loosePattern;
-  var pattern = '(?:git|https?|git@)(?:\\:\\/\\/)?github.com[/|:][\\w\\.-]+?'
-    + endOfPattern;
+  var pattern = '(?:git|https?|git@)(?:\\:\\/\\/)?github.com[/|:][\\w\\.-]+?' + endOfPattern;
+
+  if (isPlainGhUrl(url) && !repoRequired) {
+    return true;
+  }
 
   var re = new RegExp(pattern);
   return re.test(url);
