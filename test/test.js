@@ -5,11 +5,14 @@ var isGithubUrl = require('../index.js');
 var options;
 
 var userUrls = [
-  'https://github.com/facebook'
+  'https://github.com/facebook',
+  'https://github.com/facebook/'
 ];
 
 var repoUrls = [
   'https://github.com/facebook/react',
+  'https://github.com/facebook/react',
+  'https://github.com/facebook/react/',
   'https://github.com/facebook/react/tree/0.14-stable',
   'https://github.com/facebook/react/releases/tag/v0.14.0'
 ];
@@ -34,6 +37,7 @@ var invalidUrls = [
   'git://github.com:user/some_project.gitfoo',
   'git://github.com:user/some_project',
   'git@github.com:facebook/react/facebook.git',
+  'git@github.com:facebook/react/facebook.git/',
   'https://github.com/faceb@ok'
 ];
 

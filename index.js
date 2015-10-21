@@ -25,8 +25,8 @@ module.exports = function isGithubUrl(url, options) {
   var isStrict = options.strict || isStrictRequired(url);
   var strictPattern = '\\/[\\w\\.-]+?\\.git(?:\\/?|\\#[\\d\\w\\.\\-_]+)?$';
   var loosePattern = options.repository
-    ? '\\/[\\w\\.\\#\\/-]+$'
-    : '(?:\\/[\\w\\.\\#\\/-]+)?$';
+    ? '\\/[\\w\\.\\#\\/-]+\\/?$'
+    : '(?:\\/[\\w\\.\\#\\/-]+)?\\/?$';
   var endOfPattern = isStrict ? strictPattern : loosePattern;
   var pattern = '(?:git|https?|git@)(?:\\:\\/\\/)?github.com[/|:][\\w\\.-]+?'
     + endOfPattern;
