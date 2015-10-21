@@ -36,19 +36,19 @@ describe('is-github-url', function() {
   describe('with a standart set of options', function() {
 
     urls.forEach(function(url) {
-      it('URL' + ' - ' + url + ' should be valid', function () {
+      it('URL' + ' - ' + url + ' should be valid', function() {
         expect(isGithubUrl(url)).to.be.true;
       });
     });
 
     cloningUrls.forEach(function(url) {
-      it('URL' + ' - ' + url + ' should be valid', function () {
+      it('URL' + ' - ' + url + ' should be valid', function() {
         expect(isGithubUrl(url)).to.be.true;
       });
     });
 
     invalidUrls.forEach(function(url) {
-      it('URL' + ' - ' + url + ' should be invalid', function () {
+      it('URL' + ' - ' + url + ' should be invalid', function() {
         expect(isGithubUrl(url)).to.be.false;
       });
     });
@@ -62,19 +62,19 @@ describe('is-github-url', function() {
     });
 
     urls.forEach(function(url) {
-      it('URL' + ' - ' + url + ' should be invalid', function () {
+      it('URL' + ' - ' + url + ' should be invalid', function() {
         expect(isGithubUrl(url, options)).to.be.false;
       });
     });
 
     cloningUrls.forEach(function(url) {
-      it('URL' + ' - ' + url + ' should be valid', function () {
+      it('URL' + ' - ' + url + ' should be valid', function() {
         expect(isGithubUrl(url, options)).to.be.true;
       });
     });
 
     invalidUrls.forEach(function(url) {
-      it('URL' + ' - ' + url + ' should be invalid', function () {
+      it('URL' + ' - ' + url + ' should be invalid', function() {
         expect(isGithubUrl(url, options)).to.be.false;
       });
     });
