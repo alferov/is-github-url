@@ -4,9 +4,12 @@ var expect = chai.expect;
 var isGithubUrl = require('../index.js');
 var options;
 
-var urls = [
+var userUrls = [
+  'https://github.com/facebook'
+];
+
+var repoUrls = [
   'https://github.com/facebook/react',
-  'https://github.com/facebook',
   'https://github.com/facebook/react/tree/0.14-stable',
   'https://github.com/facebook/react/releases/tag/v0.14.0'
 ];
@@ -37,7 +40,13 @@ var invalidUrls = [
 describe('is-github-url', function() {
   describe('with a standart set of options', function() {
 
-    urls.forEach(function(url) {
+    repoUrls.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be valid', function() {
+        expect(isGithubUrl(url)).to.be.true;
+      });
+    });
+
+    userUrls.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be valid', function() {
         expect(isGithubUrl(url)).to.be.true;
       });
@@ -63,7 +72,45 @@ describe('is-github-url', function() {
       options = { strict: true };
     });
 
-    urls.forEach(function(url) {
+    repoUrls.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be invalid', function() {
+        expect(isGithubUrl(url, options)).to.be.false;
+      });
+    });
+
+    userUrls.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be invalid', function() {
+        expect(isGithubUrl(url, options)).to.be.false;
+      });
+    });
+
+    cloningUrls.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be valid', function() {
+        expect(isGithubUrl(url, options)).to.be.true;
+      });
+    });
+
+    invalidUrls.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be invalid', function() {
+        expect(isGithubUrl(url, options)).to.be.false;
+      });
+    });
+
+  });
+
+  describe('with enabled repository mode', function() {
+
+    before(function() {
+      options = { repository: true };
+    });
+
+    repoUrls.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be valid', function() {
+        expect(isGithubUrl(url, options)).to.be.true;
+      });
+    });
+
+    userUrls.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be invalid', function() {
         expect(isGithubUrl(url, options)).to.be.false;
       });

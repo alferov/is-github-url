@@ -16,20 +16,20 @@
 
 // Switch to strict mode automatically if the following pattern matches passed
 // string
-var strictRequired = function(string) {
+var isStrictRequired = function(string) {
   return /git(@|:)|\.git/.test(string);
 };
 
 module.exports = function isGithubUrl(url, options) {
   options = options || {};
-
-  var isStrict = options.strict || strictRequired(url);
-  var strictPattern = isStrict
-    ? '\\/[\\w\\.-]+?\\.git(?:\\/?|\\#[\\d\\w\\.\\-_]+?)$'
-    : '(\\/[\\w\\.\\#\\/-]+)?$';
-
+  var isStrict = options.strict || isStrictRequired(url);
+  var strictPattern = '\\/[\\w\\.-]+?\\.git(?:\\/?|\\#[\\d\\w\\.\\-_]+)?$';
+  var loosePattern = options.repository
+    ? '\\/[\\w\\.\\#\\/-]+$'
+    : '(?:\\/[\\w\\.\\#\\/-]+)?$';
+  var endOfPattern = isStrict ? strictPattern : loosePattern;
   var pattern = '(?:git|https?|git@)(?:\\:\\/\\/)?github.com[/|:][\\w\\.-]+?'
-    + strictPattern;
+    + endOfPattern;
 
   var re = new RegExp(pattern);
   return re.test(url);
