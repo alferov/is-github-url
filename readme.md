@@ -57,5 +57,6 @@ Check if a passed string is a valid GitHub URL
 - **Object** `options`: An object containing the following fields:
   - `strict` (Boolean): Match only URLs ending with .git
   - `repository` (Boolean): Match only valid GitHub repo URLs
+
 ## License
 MIT © [Philipp Alferov](https://github.com/alferov)
