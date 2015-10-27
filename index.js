@@ -33,7 +33,7 @@ module.exports = function isGithubUrl(url, options) {
     ? '\\/[\\w\\.\\#\\/-]+\\/?$'
     : '(?:\\/[\\w\\.\\#\\/-]+)?\\/?$';
   var endOfPattern = isStrict ? strictPattern : loosePattern;
-  var pattern = '(?:git|https?|git@)(?:\\:\\/\\/)?github.com[/|:][\\w\\.-]+?' + endOfPattern;
+  var pattern = '(?:git|https?|git@)(?:\\:\\/\\/)?github.com[/|:][A-Za-z0-9-]+?' + endOfPattern;
 
   if (isPlainGhUrl(url) && !repoRequired) {
     return true;
