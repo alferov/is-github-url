@@ -9,22 +9,29 @@ var userUrls = [
   'https://github.com/facebook/'
 ];
 
-var githubURLs = [
+var plainGhURLs = [
   'https://github.com/'
 ];
 
 var repoUrls = [
   'https://github.com/facebook/react',
   'https://github.com/facebook/react',
-  'https://github.com/facebook/_re.act/',
+  'https://github.com/facebook/_re.act/'
+];
+
+var expandedUrls = [
   'https://github.com/facebook/react/tree/0.14-stable',
-  'https://github.com/facebook/react/releases/tag/v0.14.0'
+  'https://github.com/facebook/react/releases/tag/v0.14.0',
+  'https://github.com/alferov/awesome-gulp/blob/master/.gitignore#L2',
+  'https://github.com/alferov/is-github-url/pulls?q=is%3Apr+is%3Aclosed'
 ];
 
 var cloningUrls = [
   'git://github.com/facebook/react.git#gh-pages',
   'git@github.com:facebook/react.git',
+  // 'git@github.com:facebook/react',
   'https://github.com/facebook/react.git',
+  // 'https://github.com/facebook/react',
   'git://github.com:user/some_project.git.git'
 ];
 
@@ -44,19 +51,27 @@ var invalidUrls = [
   'git@github.com:facebook/react/facebook.git',
   'git@github.com:facebook/react/facebook.git/',
   'https://github.com/faceb@ok',
-  'https://github.com/face_book'
+  'https://github.com/face_book',
+  'https://github.com:alferov/awesome-gulp#gh-pages/',
+  'https://github.com/facebook/react/.git'
 ];
 
 describe('is-github-url', function() {
   describe('with a standart set of options', function() {
 
-    githubURLs.forEach(function(url) {
+    plainGhURLs.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be valid', function() {
         expect(isGithubUrl(url)).to.be.true;
       });
     });
 
     repoUrls.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be valid', function() {
+        expect(isGithubUrl(url)).to.be.true;
+      });
+    });
+
+    expandedUrls.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be valid', function() {
         expect(isGithubUrl(url)).to.be.true;
       });
@@ -88,13 +103,19 @@ describe('is-github-url', function() {
       options = { strict: true };
     });
 
-    githubURLs.forEach(function(url) {
+    plainGhURLs.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be invalid', function() {
         expect(isGithubUrl(url, options)).to.be.false;
       });
     });
 
     repoUrls.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be invalid', function() {
+        expect(isGithubUrl(url, options)).to.be.false;
+      });
+    });
+
+    expandedUrls.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be invalid', function() {
         expect(isGithubUrl(url, options)).to.be.false;
       });
@@ -126,7 +147,7 @@ describe('is-github-url', function() {
       options = { repository: true };
     });
 
-    githubURLs.forEach(function(url) {
+    plainGhURLs.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be invalid', function() {
         expect(isGithubUrl(url, options)).to.be.false;
       });
@@ -135,6 +156,12 @@ describe('is-github-url', function() {
     repoUrls.forEach(function(url) {
       it('URL' + ' - ' + url + ' should be valid', function() {
         expect(isGithubUrl(url, options)).to.be.true;
+      });
+    });
+
+    expandedUrls.forEach(function(url) {
+      it('URL' + ' - ' + url + ' should be invalid', function() {
+        expect(isGithubUrl(url, options)).to.be.false;
       });
     });
 

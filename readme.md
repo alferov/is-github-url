@@ -39,13 +39,17 @@ isGithubUrl('https://github.com/facebook/react', { repository: true });
 // => true
 isGithubUrl('https://github.com/facebook', { repository: true });
 // => false
+isGithubUrl('https://github.com/facebook/react/releases/tag/v0.14.0', {
+  repository: true
+});
+// => false
 
 // Strict mode is used to validate URLs before cloning
 // Strict mode turns on automatically if URL contains git protocol
-isGithubUrl('https://github.com/facebook/react', { strict: true });
-// => false
 isGithubUrl('https://github.com/facebook/react.git', { strict: true });
 // => true
+isGithubUrl('https://github.com/facebook/react', { strict: true });
+// => false
 ```
 
 ## API

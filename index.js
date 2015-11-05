@@ -8,7 +8,7 @@ var isPlainGhUrl = function(string) {
 // Switch to strict mode automatically if the following pattern matches passed
 // string
 var isStrictRequired = function(string) {
-  return /git(@|:)|\.git/.test(string);
+  return /git(@|:)|\.git(?:\/?|\\#[\d\w\.\-_]+)$/.test(string);
 };
 
 /**
@@ -28,10 +28,10 @@ module.exports = function isGithubUrl(url, options) {
   options = options || {};
   var isStrict = options.strict || isStrictRequired(url);
   var repoRequired = options.repository || isStrict;
-  var strictPattern = '\\/[\\w\\.-]+?\\.git(?:\\/?|\\#[\\d\\w\\.\\-_]+)?$';
+  var strictPattern = '\\/[\\w\\.-]+?\\.git(?:\\/?|\\#[\\w\\.\\-_]+)?$';
   var loosePattern = repoRequired
-    ? '\\/[\\w\\.\\#\\/-]+\\/?$'
-    : '(?:\\/[\\w\\.\\#\\/-]+)?\\/?$';
+    ? '\\/[\\w\\.-]+\\/?(?!=.git)(?:\\.git(?:\\/?|\\#[\\w\\.\\-_]+)?)?$'
+    : '(?:\\/[\\w\\.\\/-]+)?\\/?(?:#\\w+?|\\?.*)?$';
   var endOfPattern = isStrict ? strictPattern : loosePattern;
   var pattern = '(?:git|https?|git@)(?:\\:\\/\\/)?github.com[/|:][A-Za-z0-9-]+?' + endOfPattern;
 
