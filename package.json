@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter nyan",
-    "tdd": "npm test -- --watch"
+    "tdd": "npm test -- --watch",
+    "release": "npm version ${BUMP:-\"patch\"} --no-git-tag-version && git add package.json && git commit -m \":octocat: Bump to $(cat package.json | jq -r .version)\" && git tag $(cat package.json | jq -r .version) && git push && git push --tags && npm publish"
   },
   "repository": "alferov/is-github-url",
   "keywords": [
